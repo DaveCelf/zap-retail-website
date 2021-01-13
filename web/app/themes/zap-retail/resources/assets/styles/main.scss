@@ -10,6 +10,7 @@
  * @see https://github.com/webpack-contrib/sass-loader#imports
  */
 // @import "~some-node-module";
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed&display=swap");
 
 /** Import theme styles */
 @import "common/global";

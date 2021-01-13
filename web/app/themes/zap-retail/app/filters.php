@@ -89,3 +89,128 @@ add_filter('comments_template', function ($comments_template) {
 
     return $comments_template;
 }, 100);
+
+/*
+ * Display simple UPC Field
+ */
+function add_upc_code() {
+
+    global $woocommerce, $post;
+    echo '<div class="form-field form-row form-row-full">';
+        woocommerce_wp_text_input([
+            'id'            => '_upc_code',
+            'label'         => __( 'UPC', 'zap' ), 
+            'placeholder'   => 'ZP8374560',
+            'desc_tip'      => true,
+            'description'   => __( 'Enter the UPC value here.', 'zap' ),
+        ]);
+    echo '</div>';
+
+}
+add_action( 'woocommerce_product_options_general_product_data', __NAMESPACE__.'\\add_upc_code');
+
+/*
+ * Save simple UPC Field
+ */
+function save_upc_code( $post_id ){
+    $upcCode = $_POST['_upc_code'];
+    if( !empty( $upcCode ) ) {
+        update_post_meta( $post_id, '_upc_code', esc_html( $upcCode ) );
+    }
+}
+add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_upc_code' );
+
+/*
+ * Display variable UPC Field
+ */
+function add_upc_code_variation_custom_field( $loop, $variation_data, $variation ){
+
+    $variation_upc_code = get_post_meta($variation->ID,'_upc_code', true );
+    if( ! $variation_upc_code ) $variation_upc_code = '';
+
+    echo '<div class="options_group form-row form-row-full">';
+    woocommerce_wp_text_input([
+        'id'          => '_upc_code['.$loop.']',
+        'label'       => __('Variation UPC Code','woocommerce'),
+        'placeholder' => 'ZP8374560',
+        'desc_tip'    => true,
+        'description' => __( 'Enter the UPC code here.', 'zap' ),
+        'value'       => get_post_meta($variation->ID, '_upc_code', true ),
+    ]);
+    echo '</div>';
+}
+add_action( 'woocommerce_variation_options_pricing', __NAMESPACE__.'\\add_upc_code_variation_custom_field', 10, 3 );
+
+/*
+ * Save variable UPC Field
+ */
+function save_upc_code_variation_custom_field( $variation_id, $i ){
+    if( isset($_POST['_upc_code'][$i]) )
+        update_post_meta( $variation_id, '_upc_code', sanitize_text_field($_POST['_upc_code'][$i]) );
+}
+add_action( 'woocommerce_save_product_variation', __NAMESPACE__.'\\save_upc_code_variation_custom_field', 10, 2 );
+
+/*
+ * Display Lead time
+ */
+function add_lead_time() {
+
+    global $woocommerce, $post;
+    echo '<div class="form-field form-row form-row-full">';
+        woocommerce_wp_text_input([
+            'id'            => '_lead_time',
+            'label'         => __( 'Lead Time', 'zap' ), 
+            'placeholder'   => '5 days',
+            'desc_tip'      => true,
+            'description'   => __( 'Enter the lead time here', 'zap' ),
+        ]);
+    echo '</div>';
+
+}
+add_action( 'woocommerce_product_options_inventory_product_data', __NAMESPACE__.'\\add_lead_time');
+
+/*
+ * Save Lead time
+ */
+function save_lead_code( $post_id ){
+    $leadTime = $_POST['_lead_time'];
+    if( !empty( $leadTime ) ) {
+        update_post_meta( $post_id, '_lead_time', esc_html( $leadTime ) );
+    }
+}
+add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_lead_code' );
+
+/*
+ * Display min order
+ */
+function add_min_order_no() {
+
+    global $woocommerce, $post;
+    echo '<div class="form-field form-row form-row-full">';
+        woocommerce_wp_text_input([
+            'id'            => '_min_order_no',
+            'label'         => __( 'Min. Order Number', 'zap' ), 
+            'placeholder'   => 0,
+            'desc_tip'      => true,
+            'description'   => __( 'Enter the minimum quantity to order', 'zap' ),
+            'type'          => 'number',
+            'custom_attributes' => [
+                'step' 	=> 'any',
+                'min'	=> '0'
+            ]
+        ]);
+    echo '</div>';
+
+}
+add_action( 'woocommerce_product_options_inventory_product_data', __NAMESPACE__.'\\add_min_order_no');
+
+/*
+ * Save Min Order Number
+ */
+function save_min_order_no( $post_id ){
+    $minOrderNo = $_POST['_min_order_no'];
+    if( !empty( $minOrderNo ) ) {
+        update_post_meta( $post_id, '_min_order_no', esc_html( $minOrderNo ) );
+    }
+}
+add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_min_order_no' );

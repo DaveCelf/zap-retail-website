@@ -5,3 +5,15 @@
 .banner .nav a {
   @extend .nav-link;
 }
+
+#masthead {
+  ul {
+    li {
+      a {
+        font-family: $roboto;
+        text-transform: uppercase;
+        font-size: $font-size-base * 1.1;
+      }
+    }
+  }
+}

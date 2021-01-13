@@ -1,0 +1,100 @@
+body {
+  overflow-x: hidden;
+
+  * {
+    color: $teal;
+  }
+}
+
+.alignfull {
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  width: auto;
+  max-width: 1000%;
+}
+
+.alignwide {
+  margin-left: calc(50% - 40vw);
+  margin-right: calc(50% - 40vw);
+  width: auto;
+  max-width: 1000%;
+
+  @include media-breakpoint-down(lg) {
+    &.align-full-mobile {
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
+    }
+  }
+}
+
+%no-bullets {
+  list-style-type: none;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+@each $color, $value in $colors {
+  //colors
+  .text--#{$color} {
+    color: $value;
+  }
+  //border color
+  .border-color--#{$color} {
+    border-color: $value;
+  }
+  //badges
+  .badge--#{$color} {
+    color: $value;
+
+    &:hover {
+      color: $value;
+    }
+  }
+  //badges
+  .background--#{$color} {
+    background-color: $value;
+
+    &:hover {
+      background-color: $value;
+    }
+  }
+
+  .has-#{$color}-color {
+    color: $value;
+  }
+
+  .btn--#{$color} {
+    background-color: $value;
+
+    &:hover {
+      border-color: $value !important;
+      color: $value !important;
+      background-color: transparent !important;
+    }
+  }
+
+  .btn-outline--#{$color} {
+    border-color: $value !important;
+    color: $value !important;
+
+    &:hover {
+      border-color: darken($value, 6%) !important;
+      color: darken($value, 6%) !important;
+    }
+  }
+}
+
+.splide__arrow {
+  opacity: 1 !important;
+  background: none !important;
+}
+
+p {
+  margin-bottom: $spacer / 3;
+
+  br {
+    @include media-breakpoint-down(lg) {
+      display: none;
+    }
+  }
+}

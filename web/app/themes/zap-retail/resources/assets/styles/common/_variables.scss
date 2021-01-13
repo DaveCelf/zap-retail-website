@@ -1,10 +1,125 @@
 /** Import Bootstrap functions */
 @import "~bootstrap/scss/functions";
 
+/** Greys **/
+$grey-100: #fafafa;
+$grey-200: #f5f5f5;
+$grey-400: #d0d2d4;
+$grey-800: #373f41;
+$grey-900: #1d1d1b;
+
+$yellow:    #ffdd5c;
+$blue:      #3c64b1;
+$darkerBlue:#0c2035;
+$darkBlue:  #122b43;
+$purple:    #444c53;
+$cyan:      #168993;
+$black:     #000;
+$red:       #b41412;
+$pink:      #eac7c6;
+$teal:      #07655e;
+$orange:    #cc9825;
+
+$primary:     $orange;
+$secondary:   $grey-400;
+$success:     $blue;
+$info:        #ffeca3;
+$warning:     $yellow;
+$danger:      lighten($red, 10%);
+$light:       $grey-100;
+$dark:        $grey-800;
+
 $theme-colors: (
-  primary: #525ddc
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+  "black":      $black,
 );
+
+$colors: (
+  "black":      $black,
+  "cyan":       $cyan,
+  "blue":       $blue,
+  "purple":     $purple,
+  "grey":       $grey-400,
+  "red":        $red,
+  "darkgrey":   $grey-800,
+  "pink":       $pink
+);
+
+$color-contrast-dark:      $blue;
+$color-contrast-light:     $light;
+
+$spacer: 1rem;
+
+$comfortaa: "Comfortaa", cursive;
+$raleway: "Raleway", sans-serif;
+$roboto: "Roboto Condensed", sans-serif;
+
+$font-family-base: $raleway;
+$headings-font-family: $raleway;
+$slider-header-font-lg: $comfortaa;
+$slider-header-font-sm: $roboto;
+
+$font-size-xs: 0.8rem;
+$font-size-sm: 0.9rem;
+$font-size-base: 1rem;
+$font-size-md: 1.2rem;
+$font-size-lg: 1.3rem;
+$font-size-xl: 1.4rem;
+
+$h1-font-size:  $font-size-base * 2.5;
+$h2-font-size:  $font-size-base * 2;
+$h3-font-size:  $font-size-base * 1.75;
+$h4-font-size:  $font-size-base * 1.5;
+$h5-font-size:  $font-size-base * 1.25;
+$h6-font-size:  $font-size-base;
+
+$display1-size: 3.75rem;
+$display2-size: 3rem;
+$display3-size: 2.25rem;
+$display4-size: 1.5rem;
+
+$font-weight-light: 200;
+$font-weight-base: 300;
+$font-weight-semibold: 400;
+$font-weight-bold: 600;
+$font-weight-bolder: 700;
+$headings-font-weight: $font-weight-base;
+$btn-font-weight: $font-weight-base;
+
+/** link color */
+$link-color:  $black;
 
 /** Bootstrap navbar fix (https://git.io/fADqW) */
 $navbar-dark-toggler-icon-bg: none;
 $navbar-light-toggler-icon-bg: none;
+
+/** Transitions */
+$transition-speed: 0.3s;
+$carousel-transition-speed: 0.8s;
+
+/** Buttons **/
+$btn-font-weight:             300;
+$btn-font-family:             $roboto;
+$btn-font-size:               $font-size-base;
+$btn-font-size-sm:            $font-size-base / 1.2;
+$btn-font-size-lg:            $font-size-base * 1.25;
+$btn-border-width:            2px;
+
+$btn-padding-y-sm:            $spacer / 2.2;
+$input-btn-padding-y:         $spacer / 1.5;
+$input-btn-padding-x:         $spacer * 2.3;
+$input-btn-padding-x-lg:      $spacer * 3;
+
+$btn-border-radius:           0;
+$btn-border-radius-sm:        $btn-border-radius;
+$btn-border-radius-lg:        $btn-border-radius;
+
+/** Borders **/
+$border-radius: 0;

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(-1722 -2650)" data-name="Group 1216">
+<path transform="translate(1695.6 2662.2)" d="M54.135,8.473l.936-.936L47.53,0,46.48,1.05,40.657,6.873a.612.612,0,0,0-.064.071L40,7.537l.593.593c.021.025.039.046.064.071l.564.564c.021.021.046.043.071.064l.593.593.55-.55a.875.875,0,0,0,.125-.1L46.19,5.151V17.574h2.686V5.108l.964.964,2.686,2.693c.025.025.054.05.082.075l.582.582.636-.636c.007-.007.014-.011.018-.018Z" fill="#444c53"/>
+<g transform="translate(1722 2650)" fill="none" stroke="#444c53" stroke-width="3" data-name="Rectangle 1122">
+<rect width="42" height="42" stroke="none"/>
+<rect x="1.5" y="1.5" width="39" height="39" fill="none"/>
+</g>
+</g>
+</svg>
