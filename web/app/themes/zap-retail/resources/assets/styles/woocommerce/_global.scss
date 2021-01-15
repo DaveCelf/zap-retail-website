@@ -1,0 +1,22 @@
+.woocommerce {
+  /** Icons Fix **/
+  .download {
+    height: 15px;
+  }
+
+  .phone,
+  .truck,
+  .cart {
+    height: 20px;
+  }
+
+  .phone-footer,
+  .mail,
+  .pin {
+    width: 20px;
+  }
+}
+
+.woocommerce-variation-add-to-cart {
+  display: none !important;
+}

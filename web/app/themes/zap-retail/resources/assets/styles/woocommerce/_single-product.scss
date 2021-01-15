@@ -1,0 +1,178 @@
+.woocommerce {
+  div.product {
+    @extend .row;
+
+    .woocommerce-product-gallery,
+    .entry-summary {
+      @extend .col-6;
+
+      float: none;
+    }
+
+    form.cart {
+      height: auto;
+      margin-bottom: 0;
+    }
+
+    .affiliate-logos {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      img {
+        height: 50px;
+        width: auto;
+
+        &.siesta-logo {
+          height: 80px;
+        }
+      }
+    }
+
+    .sku_wrapper {
+      font-weight: $font-weight-bold;
+
+      span {
+        font-weight: $font-weight-normal;
+      }
+    }
+
+    h1.product_title {
+      @extend .h4;
+
+      font-weight: $font-weight-bold;
+    }
+
+    p.price {
+      @extend .display-2;
+
+      margin-top: $spacer;
+      font-family: $comfortaa;
+    }
+
+    .product_meta {
+      .posted_in {
+        display: none;
+      }
+    }
+
+    .woocommerce-tabs {
+      ul.tabs {
+        margin: $spacer 0;
+        padding: 0 ($spacer / 3.5);
+
+        &::before {
+          border-bottom: 1px solid $teal;
+        }
+
+        li {
+          background: none;
+          border: 0 none;
+
+          a {
+            color: $orange;
+          }
+
+          &.active {
+            border-left: 1px solid $teal;
+            border-right: 1px solid $teal;
+            border-top: 1px solid $teal;
+
+            &::before {
+              border-right: 1px solid $teal;
+              border-bottom: 1px solid $teal;
+            }
+
+            &::after {
+              border-left: 1px solid $teal;
+              border-bottom: 1px solid $teal;
+            }
+          }
+        }
+      }
+    }
+
+    .variations {
+      .swatch-control {
+        .select-option {
+          border: 0 none;
+          padding: 0;
+          border-radius: 100%;
+          overflow: hidden;
+        }
+      }
+
+      a.reset_variations {
+        color: $white;
+        background: $red;
+        padding: ($spacer / 2) $spacer;
+      }
+    }
+
+    .woocommerce-Tabs-panel {
+      &--resources {
+        .list-group {
+          border: 0 none;
+
+          &-item {
+            border-left: 0 none;
+            border-right: 0 none;
+            border-top: 0 none;
+            border-bottom-color: $teal;
+            border-bottom-width: 1px;
+            margin-bottom: 0;
+
+            span {
+              font-weight: $font-weight-bold;
+            }
+
+            &:hover {
+              border-bottom-color: $orange;
+              background: transparent;
+
+              span {
+                color: $orange;
+              }
+            }
+          }
+        }
+      }
+
+      &--additional_information {
+        h2 {
+          display: none;
+        }
+
+        table.woocommerce-product-attributes {
+          border-top: 0 none;
+
+          tr {
+            th,
+            td {
+              border-bottom: 1px solid $teal;
+            }
+
+            td {
+              padding-right: 0;
+            }
+
+            th {
+              padding-left: 0;
+            }
+
+            &:nth-child(even) {
+              th,
+              td {
+                background: none;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .related {
+      @extend .col-12;
+    }
+  }
+}

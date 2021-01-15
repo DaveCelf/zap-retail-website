@@ -26,15 +26,15 @@
       <div class="container">
         <div class="row py-3">
           <div class="col-12 col-md-4 text-left">
-            <img class="mr-2" height="20px" width="auto" alt="Truck" src="@asset('images/truck.svg')" />
+            <img class="mr-2 truck" height="20px" width="auto" alt="Truck" src="@asset('images/truck.svg')" />
             <p class="d-inline-block text--white mb-0">Next day delivery available</p>
           </div>
           <div class="col-12 col-md-4 text-center">
-            <img class="mr-2" height="20px" width="auto" alt="Phone" src="@asset('images/phone.svg')" />
+            <img class="mr-2 phone" height="20px" width="auto" alt="Phone" src="@asset('images/phone.svg')" />
             <p class="d-inline-block text--white mb-0">Call us on <a class="text--white" href="tel:0345 073 8455">0345 073 8455</a></p>
           </div>
           <div class="col-12 col-md-4 text-right">
-            <img class="mr-2" height="20px" width="auto" alt="Cart" src="@asset('images/cart.svg')" />
+            <img class="mr-2 cart" height="20px" width="auto" alt="Cart" src="@asset('images/cart.svg')" />
             <p class="d-inline-block text--white mb-0">Many Items in Stock</p>
           </div>
         </div>
@@ -54,4 +54,8 @@
     </div>
   </div>
 </div>
+
+@if(!is_front_page())
+  @include('partials/breadcrumbs')
+@endif
 

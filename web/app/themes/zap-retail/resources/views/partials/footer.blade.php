@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-10 ol-md-11 text-left text-md-center d-flex flex-column justify-content-center">
           <a class="btn btn-primary mr-auto ml-md-auto" href="tel:0345 073 8455">
-            <img class="mr-2" height="20px" width="auto" alt="Phone" src="@asset('images/phone.svg')" />
+            <img class="mr-2 phone" height="20px" width="auto" alt="Phone" src="@asset('images/phone.svg')" />
             <span class="d-inline-bock">Call us on 0345 073 8455</span> 
           </a>
         </div>
@@ -30,15 +30,15 @@
         <div class="mb-3 mb-md-0 col-12 col-md-5">
           <h4 class="h5 mb-4 font-weight-bold text--white">Get in touch:</h4>
           <p class="d-flex flex-row align-items-center pb-2">
-            <img class="mr-2 pt-1" width="20px" height="auto" alt="Truck" src="@asset('images/phone.svg')" />
+            <img class="mr-2 pt-1 phone-footer" width="20px" height="auto" alt="Truck" src="@asset('images/phone.svg')" />
             <span class="d-inline-block text--white mb-0">Contact our sales team on 0345 073 8455</span>
           </p>
           <p class="d-flex flex-row align-items-start pb-2">
-            <img class="mr-2 pt-1" width="20px" height="auto" alt="Truck" src="@asset('images/pin.svg')" />
+            <img class="mr-2 pt-1 pin" width="20px" height="auto" alt="Truck" src="@asset('images/pin.svg')" />
             <span class="d-inline-block text--white mb-0">Straight Mile House, Beacon Road, Rotherwas <br/>Industrial Estate, Hereford, HR2 6JF</span>
           </p>
           <p class="d-flex flex-row align-items-start pb-2">
-            <img class="mr-2 pt-1" width="20px" height="auto" alt="Truck" src="@asset('images/mail.svg')" />
+            <img class="mr-2 pt-1 mail" width="20px" height="auto" alt="Truck" src="@asset('images/mail.svg')" />
             <span class="d-inline-block text--white mb-0">
               <a href="mailto:sales@zapretail.com" class="text--white">sales@zapretail.com</a>
             </span>
@@ -48,19 +48,19 @@
           <h4 class="h5 mb-4 font-weight-bold text--white">Download Brochures:</h4>
           <p>
             <a href="#">
-              <img height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
+              <img class="download" height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
               <span class="ml-2 d-inline-block text--white">ZAP Retail Contract Catalogue</span>
             </a>
           </p>
           <p>
             <a href="#">
-              <img height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
+              <img class="download" height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
               <span class="ml-2 d-inline-block text--white">ZAP Retail Garden Catalogue</span>
             </a>
           </p>
           <p>
             <a href="#">
-              <img height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
+              <img class="download" height="15px" width="auto" alt="download" src="@asset('images/download.svg')" />
               <span class="ml-2 d-inline-block text--white">ZAP Retail Rattan Catalogue</span>
             </a>
           </p>

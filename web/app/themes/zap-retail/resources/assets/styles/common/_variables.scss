@@ -3,7 +3,7 @@
 
 /** Greys **/
 $grey-100: #fafafa;
-$grey-200: #f5f5f5;
+$grey-200: #eceded;
 $grey-400: #d0d2d4;
 $grey-800: #373f41;
 $grey-900: #1d1d1b;
@@ -18,7 +18,7 @@ $black:     #000;
 $red:       #b41412;
 $pink:      #eac7c6;
 $teal:      #07655e;
-$orange:    #cc9825;
+$orange:    #cd9925;
 
 $primary:     $orange;
 $secondary:   $grey-400;
@@ -47,9 +47,11 @@ $colors: (
   "blue":       $blue,
   "purple":     $purple,
   "grey":       $grey-400,
+  "lightgrey":  $grey-200,
   "red":        $red,
   "darkgrey":   $grey-800,
-  "pink":       $pink
+  "pink":       $pink,
+  "orange":     $orange
 );
 
 $color-contrast-dark:      $blue;

@@ -150,6 +150,15 @@ function save_upc_code_variation_custom_field( $variation_id, $i ){
 }
 add_action( 'woocommerce_save_product_variation', __NAMESPACE__.'\\save_upc_code_variation_custom_field', 10, 2 );
 
+/**
+ * Add custom fields for variations
+ *
+*/
+add_filter( 'woocommerce_available_variation', function($variations){
+    $variations['upc_code'] = get_post_meta( $variations[ 'variation_id' ], '_upc_code', true );
+    return $variations;
+});
+
 /*
  * Display Lead time
  */
@@ -195,8 +204,8 @@ function add_min_order_no() {
             'description'   => __( 'Enter the minimum quantity to order', 'zap' ),
             'type'          => 'number',
             'custom_attributes' => [
-                'step' 	=> 'any',
-                'min'	=> '0'
+                'step'  => 'any',
+                'min'   => '0'
             ]
         ]);
     echo '</div>';
@@ -214,3 +223,77 @@ function save_min_order_no( $post_id ){
     }
 }
 add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_min_order_no' );
+
+/** 
+ * Move SKU to underneath UPC
+ */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 80 );
+
+/**
+ * Add Imagery underneath descritpion
+ */
+add_action('woocommerce_single_product_summary', function(){
+    $html = '<div class="affiliate-logos">
+        <img width="60" height="60" class="siesta-logo" src="'.asset_path('images/siesta.png').'" />
+        <img width="120" height="60" class="catas-logo" src="'.asset_path('images/catas.png').'" />
+        </div>';
+    print $html;
+}, 20);
+
+/** 
+ * Change single product page order
+ * ADD TO CART / VARIATIONS
+ */
+remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 70 );
+
+/** 
+ * Change single product page order
+ * TABS
+ */
+remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 60 );
+
+
+/**
+ * Remove product data tabs
+ */
+add_filter( 'woocommerce_product_tabs', function($tabs) {
+
+    unset( $tabs['description'] ); // Remove the description tab
+    unset( $tabs['reviews'] ); // Remove the reviews tab
+    return $tabs;
+
+}, 98 );
+
+
+/**
+ * Add a Resources data tab
+ */
+add_filter( 'woocommerce_product_tabs', function ($tabs) {
+
+    // Adds the new resource tab
+    $tabs['resources'] = array(
+        'title'     => __( 'Resources', 'woocommerce' ),
+        'priority'  => 50,
+        'callback'  => function() {
+            $resources = get_field('download_relation');
+            if($resources) {
+                echo '<div class="list-group">';
+                foreach($resources as $resource) {
+                    echo '<a target="_blank" class="px-0 d-flex justify-content-between list-group-item list-group-item-action" href="'.get_field('download_file', $resource)['url'].'">';
+                        echo '<span class="resource-title-wrap">';
+                            echo '<img class="mr-2" width="20px" height="auto" src="'.asset_path('images/document.svg').'" />';
+                            echo get_field('download_title', $resource);
+                        echo '</span>';
+                        echo '<img width="20px" height="auto" src="'.asset_path('images/download-orange.svg').'" />';
+                    echo '</a>';
+                }
+                echo '</div>';
+            }
+        }
+    );
+
+    return $tabs;
+});
