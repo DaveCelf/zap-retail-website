@@ -248,13 +248,17 @@ add_action('woocommerce_single_product_summary', function(){
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 70 );
 
+/**
+ * Remove woo breadcrumbs on all pages
+ */
+remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0);
+
 /** 
  * Change single product page order
  * TABS
  */
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
 add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 60 );
-
 
 /**
  * Remove product data tabs
@@ -296,4 +300,59 @@ add_filter( 'woocommerce_product_tabs', function ($tabs) {
     );
 
     return $tabs;
+});
+
+/**
+ * Add swtaches to products archives
+ */
+add_action( 'woocommerce_product_meta_end', function() {
+    if(get_field('product_set_items', get_the_ID())) {
+        echo '<h4 class="h3 font-weight-bold pt-4 mb-3">Set Items</div>';
+        foreach(get_field('product_set_items') as $productItem) { ?>
+        <div class="row align-items-center">
+            <div class="col-2">
+                <?php echo get_the_post_thumbnail($productItem['product'], 'thumbnail', ['class' => 'img-fluid w-100']); ?>
+            </div>
+            <div class="col-2 text-center">
+                <p class="h1 font-weight-bold">x<?php echo $productItem['num_of_items']; ?></p>
+            </div>
+            <div class="col-8 text-left">
+                <h3 class="h5 font-weight-bold mb-0 pb-0">
+                    <?php echo get_the_title($productItem['product']); ?>
+                </h3>
+                <?php if($productItem['product_sku']): ?>
+                    <p><?php echo $productItem['product_sku']; ?></p>
+                <?php endif; ?>
+            </div>
+        </div>
+        <hr />
+        <?php }
+    }
+});
+
+/**
+ * Add swtaches to products archives
+ */
+add_action( 'woocommerce_after_shop_loop_item', function($product) {
+    global $product;
+    if($product->is_type( 'variable' )) {
+        $variations = $product->get_available_variations();
+        if($variations){
+            echo '<ul class="swatch">';
+            foreach($variations as $key => $value){
+                $termID = get_term_by('slug', $value['attributes']['attribute_pa_color'], 'pa_color')->term_id;
+                $swatchMeta = get_term_meta($termID);
+                $swatchType = $swatchMeta['pa_color_swatches_id_type'][0];
+                echo '<li class="swatch--wrapper">';
+                if($swatchType == 'color') {
+                    echo '<span class="swatch--color" style="background-color:'.$swatchMeta['pa_color_swatches_id_color'][0].';"></span>';
+                } elseif($swatchType == 'photo') {
+                    $photo = wp_get_attachment_image_src($swatchMeta['pa_color_swatches_id_photo'][0], 'thumbnail')[0];
+                    echo '<img class="swatch--photo" src="'.$photo.'" width="150" height="150" />';
+                }
+                echo '</li>';
+            }
+            echo '</ul>';
+        }
+    }
 });

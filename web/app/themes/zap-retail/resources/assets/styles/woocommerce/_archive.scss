@@ -1,0 +1,84 @@
+.woocommerce {
+  ul.products {
+    li.product {
+      border-left: 1px solid $grey-500;
+      border-right: 1px solid $grey-500;
+      border-top: 1px solid $grey-500;
+
+      a {
+        h2 {
+          display: none;
+        }
+
+        img {
+          margin-bottom: 0;
+        }
+
+        .woocommerce-loop-product {
+          &__title {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            background: $orange;
+            color: $white;
+            text-transform: uppercase;
+            font-family: $roboto;
+            position: relative;
+
+            &::after {
+              width: 12px;
+              height: 12px;
+              display: inline-block;
+              content: "";
+              margin-left: $spacer / 2;
+              background-image: url("/app/themes/zap-retail/dist/images/arrow-right-white.svg");
+              background-repeat: no-repeat;
+              background-position: center center;
+              background-size: contain;
+            }
+          }
+        }
+
+        .price {
+          display: none;
+        }
+      }
+
+      .button {
+        display: none;
+      }
+    }
+  }
+}
+
+.swatch {
+  display: flex;
+  width: 100%;
+  position: absolute;
+  overflow: hidden;
+  left: $spacer / 1;
+  bottom: $spacer * 2;
+
+  &--wrapper {
+    width: 20px;
+    height: 20px;
+    border-radius: 100px;
+    display: inline-block;
+    overflow: hidden;
+    margin-right: $spacer / 3;
+    line-height: 0;
+    border: 1px solid $teal;
+  }
+
+  &--color {
+    width: 20px;
+    height: 20px;
+    display: block;
+  }
+
+  &--photo {
+    width: 20px;
+    height: 20px;
+  }
+}

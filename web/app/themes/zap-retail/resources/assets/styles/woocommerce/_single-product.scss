@@ -2,9 +2,16 @@
   div.product {
     @extend .row;
 
-    .woocommerce-product-gallery,
+    padding-top: $spacer * 3;
+
     .entry-summary {
-      @extend .col-6;
+      @extend .col-7;
+
+      float: none;
+    }
+
+    .images {
+      @extend .col-5;
 
       float: none;
     }
@@ -12,6 +19,11 @@
     form.cart {
       height: auto;
       margin-bottom: 0;
+
+      .quantity,
+      .single_add_to_cart_button {
+        display: none;
+      }
     }
 
     .affiliate-logos {
@@ -59,7 +71,7 @@
     .woocommerce-tabs {
       ul.tabs {
         margin: $spacer 0;
-        padding: 0 ($spacer / 3.5);
+        padding: 0 ($spacer / 3);
 
         &::before {
           border-bottom: 1px solid $teal;
@@ -171,8 +183,54 @@
       }
     }
 
-    .related {
+    .upsells.products {
       @extend .col-12;
+
+      h2 {
+        display: none;
+      }
+
+      img {
+        margin-bottom: 0;
+      }
+
+      .woocommerce-loop-product {
+        &__title {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+          background: $orange;
+          color: $white;
+          text-transform: uppercase;
+          font-family: $roboto;
+          position: relative;
+
+          &::after {
+            width: 12px;
+            height: 12px;
+            display: inline-block;
+            content: "";
+            margin-left: $spacer / 2;
+            background-image: url("/app/themes/zap-retail/dist/images/arrow-right-white.svg");
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: contain;
+          }
+        }
+      }
+
+      .price {
+        display: none;
+      }
+
+      .button {
+        display: none;
+      }
+    }
+
+    .related {
+      display: none;
     }
   }
 }

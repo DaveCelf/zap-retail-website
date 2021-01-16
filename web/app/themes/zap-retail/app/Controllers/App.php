@@ -38,8 +38,10 @@ class App extends Controller
      */
     public static function the_breadcrumb() {
         $sep = '&nbsp;/&nbsp;';
-
-        if (!is_front_page()) {
+        
+        if(is_singular('product') || is_tax('product_cat')) {
+            woocommerce_breadcrumb();
+        } elseif (!is_front_page()) {
             // Start the breadcrumb with a link to your homepage
             echo '<nav aria-label="breadcrumb">';
             echo '<ol class="breadcrumb background--lightgrey px-0">';
