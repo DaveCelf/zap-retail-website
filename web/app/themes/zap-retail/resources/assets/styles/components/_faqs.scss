@@ -1,0 +1,41 @@
+.faqs {
+  .collapse-button {
+    background: $gray-500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $spacer;
+
+    .minus {
+      display: none;
+      stroke-width: 3;
+    }
+
+    .plus {
+      stroke-width: 3;
+    }
+
+    &[aria-expanded="true"] {
+      border-top-left-radius: $border-radius;
+      border-top-right-radius: $border-radius;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      background: $primary;
+      color: $white;
+
+      .minus {
+        display: block;
+      }
+
+      .plus {
+        display: none;
+      }
+    }
+  }
+
+  .card-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-top: 0 none;
+  }
+}

@@ -6,12 +6,17 @@ use Roots\Sage\Container;
 use Roots\Sage\Assets\JsonManifest;
 use Roots\Sage\Template\Blade;
 use Roots\Sage\Template\BladeProvider;
+use StoutLogic\AcfBuilder\FieldsBuilder;
+
+use function \Sober\Intervention\intervention;
 
 /**
  * Theme assets
  */
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('sage/main.css', asset_path('styles/main.css'), false, null);
+    wp_enqueue_style('sage/line-icons.css', 'https://cdn.lineicons.com/2.0/LineIcons.css', false, null);
+    wp_enqueue_style('sage/google-fonts.css', 'https://fonts.googleapis.com/css2?family=Comfortaa:wght@600;700&family=Roboto:wght@300;400;500;700&family=Roboto+Condensed&display=swap', false, null);
     wp_enqueue_script('sage/main.js', asset_path('scripts/main.js'), ['jquery'], null, true);
 
     if (is_single() && comments_open() && get_option('thread_comments')) {
@@ -53,6 +58,13 @@ add_action('after_setup_theme', function () {
      * @link https://developer.wordpress.org/themes/functionality/featured-images-post-thumbnails/
      */
     add_theme_support('post-thumbnails');
+    add_image_size('Slider Image', 1300, 885, true);
+    add_image_size('Page Header', 1800, 885, true);
+
+    /**
+     * Theme suport for alignwide
+     */
+    add_theme_support('align-wide');
 
     /**
      * Enable HTML5 markup support
@@ -71,6 +83,16 @@ add_action('after_setup_theme', function () {
      * @see resources/assets/styles/layouts/_tinymce.scss
      */
     add_editor_style(asset_path('styles/main.css'));
+
+    /**
+     * Register otpions page
+     */
+    intervention('add-acf-page', [
+        'page_title' 	=> 'Site Options',
+        'menu_title'  => 'Site Options',
+        'menu_slug'   => 'site-options'
+    ]);
+
 }, 20);
 
 /**
@@ -129,5 +151,18 @@ add_action('after_setup_theme', function () {
      */
     sage('blade')->compiler()->directive('asset', function ($asset) {
         return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
+    });
+
+    /**
+     * Initialize ACF Builder
+    */
+    add_action('init', function () {
+        collect(glob(config('theme.dir').'/app/ACF/*/*.php'))->map(function ($field) {
+            return require_once($field);
+        })->map(function ($field) {
+            if ($field instanceof FieldsBuilder) {
+                acf_add_local_field_group($field->build());
+            }
+        });
     });
 });

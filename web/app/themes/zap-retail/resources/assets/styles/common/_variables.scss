@@ -61,13 +61,13 @@ $color-contrast-light:     $light;
 $spacer: 1rem;
 
 $comfortaa: "Comfortaa", cursive;
-$raleway: "Raleway", sans-serif;
-$roboto: "Roboto Condensed", sans-serif;
+$roboto: "Roboto", sans-serif;
+$roboto-condensed: "Roboto Condensed", sans-serif;
 
-$font-family-base: $raleway;
-$headings-font-family: $raleway;
+$font-family-base: $roboto;
+$headings-font-family: $roboto;
 $slider-header-font-lg: $comfortaa;
-$slider-header-font-sm: $roboto;
+$slider-header-font-sm: $roboto-condensed;
 
 $font-size-xs: 0.8rem;
 $font-size-sm: 0.9rem;
@@ -109,7 +109,7 @@ $carousel-transition-speed: 0.8s;
 
 /** Buttons **/
 $btn-font-weight:             300;
-$btn-font-family:             $roboto;
+$btn-font-family:             $roboto-condensed;
 $btn-font-size:               $font-size-base;
 $btn-font-size-sm:            $font-size-base / 1.2;
 $btn-font-size-lg:            $font-size-base * 1.25;

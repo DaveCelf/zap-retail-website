@@ -10,7 +10,9 @@
  * @see https://github.com/webpack-contrib/sass-loader#imports
  */
 // @import "~some-node-module";
-@import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed&display=swap");
+
+/** GlideJS carousel */
+@import "~@glidejs/glide/src/assets/sass/glide.core";
 
 /** Import theme styles */
 @import "common/global";
@@ -18,6 +20,11 @@
 @import "components/comments";
 @import "components/forms";
 @import "components/wp-classes";
+@import "components/slider";
+@import "components/page_links";
+@import "components/cover.scss";
+@import "components/group.scss";
+@import "components/faqs";
 @import "woocommerce/global";
 @import "woocommerce/single-product";
 @import "woocommerce/archive";

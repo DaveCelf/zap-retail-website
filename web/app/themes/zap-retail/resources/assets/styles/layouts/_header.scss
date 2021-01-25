@@ -10,10 +10,15 @@
   ul {
     li {
       a {
-        font-family: $roboto;
+        font-family: $roboto-condensed;
         text-transform: uppercase;
         font-size: $font-size-base * 1.1;
       }
     }
   }
+}
+
+.splide__arrow {
+  opacity: 1 !important;
+  background: none !important;
 }

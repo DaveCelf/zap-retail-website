@@ -3,12 +3,18 @@
 namespace App\Controllers;
 
 use Sober\Controller\Controller;
+use WP_Query;
 
 class App extends Controller
 {
     public function siteName()
     {
         return get_bloginfo('name');
+    }
+
+    public static function option($value)
+    {
+        return get_field($value, 'options');
     }
 
     public static function title()
@@ -31,6 +37,23 @@ class App extends Controller
         return get_the_title();
     }
 
+
+    /**
+     * returns posts from certs custom post type
+     *
+     * @param array $ids include ads by id
+     * @return object
+     */
+    public static function getSlides(array $ids = null) : object
+    {
+        $certArgs = [
+            'post_type' => 'slides',
+            'posts_per_page' => -1,
+            'post__in' => $ids,
+        ];
+        return new WP_Query($certArgs);
+    }
+
     /**
      * Breadcrumbs function
      *
@@ -44,7 +67,7 @@ class App extends Controller
         } elseif (!is_front_page()) {
             // Start the breadcrumb with a link to your homepage
             echo '<nav aria-label="breadcrumb">';
-            echo '<ol class="breadcrumb background--lightgrey px-0">';
+            echo '<ol class="breadcrumb mb-0 background--lightgrey px-0">';
             echo '<li class="breadcrumb-item"><a href="';
             echo get_option('home');
             echo '">';

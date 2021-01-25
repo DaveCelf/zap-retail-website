@@ -1,0 +1,9 @@
+.wp-block-group {
+  &__inner-container {
+    @extend .container;
+
+    > p {
+      display: none;
+    }
+  }
+}

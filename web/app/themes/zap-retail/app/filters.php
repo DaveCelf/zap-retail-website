@@ -228,25 +228,31 @@ add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_min_order_
  * Move SKU to underneath UPC
  */
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 80 );
+add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 30 );
 
 /**
  * Add Imagery underneath descritpion
  */
 add_action('woocommerce_single_product_summary', function(){
-    $html = '<div class="affiliate-logos">
-        <img width="60" height="60" class="siesta-logo" src="'.asset_path('images/siesta.png').'" />
-        <img width="120" height="60" class="catas-logo" src="'.asset_path('images/catas.png').'" />
-        </div>';
-    print $html;
-}, 20);
+    $siestaLogo = get_field('siesta_logo');
+    $catasLogo = get_field('catas_logo');
+
+    echo '<div class="affiliate-logos mt-3">';
+    if($siestaLogo == 'yes') { 
+        echo '<img width="60" height="60" class="siesta-logo" src="'.asset_path('images/siesta.png').'" />';
+    }
+    if($catasLogo == 'yes') { 
+        echo '<img width="120" height="60" class="catas-logo" src="'.asset_path('images/catas.png').'" />';
+    }
+    echo '</div>';
+}, 40);
 
 /** 
  * Change single product page order
  * ADD TO CART / VARIATIONS
  */
-remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 70 );
+// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
+// add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 70 );
 
 /**
  * Remove woo breadcrumbs on all pages
@@ -311,7 +317,7 @@ add_action( 'woocommerce_product_meta_end', function() {
         foreach(get_field('product_set_items') as $productItem) { ?>
         <div class="row align-items-center">
             <div class="col-2">
-                <?php echo get_the_post_thumbnail($productItem['product'], 'thumbnail', ['class' => 'img-fluid w-100']); ?>
+                <img src="<?php echo $productItem['product_img']['sizes']['woocommerce_thumbnail']; ?>" width="300" height="300" class="img-fluid w-100" />
             </div>
             <div class="col-2 text-center">
                 <p class="h1 font-weight-bold">x<?php echo $productItem['num_of_items']; ?></p>
@@ -356,3 +362,23 @@ add_action( 'woocommerce_after_shop_loop_item', function($product) {
         }
     }
 });
+
+/**
+ * Change shop toproducts page
+ */
+add_action( 'template_redirect', function() {
+    if( is_shop() ){
+        wp_redirect( home_url( '/products' ) );
+        exit();
+    }
+});
+
+add_filter( 'woocommerce_format_dimensions', function($dimension_string, $dimensions)
+{
+    if ( empty( $dimension_string ) )
+        return __( 'N/A', 'woocommerce' );
+    $dimensions = array_filter( array_map( 'wc_format_localized_decimal', $dimensions) );
+
+    return 'Depth: '.$dimensions['length'].get_option( 'woocommerce_dimension_unit' ).' Width: '.$dimensions['width'].get_option( 'woocommerce_dimension_unit' ).' Height: '.$dimensions['height'].get_option( 'woocommerce_dimension_unit' );
+
+}, 10, 2 );

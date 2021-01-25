@@ -34,13 +34,9 @@
             <span class="d-inline-block text--white mb-0">Contact our sales team on 0345 073 8455</span>
           </p>
           <p class="d-flex flex-row align-items-start pb-2">
-            <img class="mr-2 pt-1 pin" width="20px" height="auto" alt="Truck" src="@asset('images/pin.svg')" />
-            <span class="d-inline-block text--white mb-0">Straight Mile House, Beacon Road, Rotherwas <br/>Industrial Estate, Hereford, HR2 6JF</span>
-          </p>
-          <p class="d-flex flex-row align-items-start pb-2">
             <img class="mr-2 pt-1 mail" width="20px" height="auto" alt="Truck" src="@asset('images/mail.svg')" />
             <span class="d-inline-block text--white mb-0">
-              <a href="mailto:sales@zapretail.com" class="text--white">sales@zapretail.com</a>
+              <a href="mailto:sales@zapretail.com" class="text--white">sales@zap-retail.com</a>
             </span>
           </p>
         </div>
