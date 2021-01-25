@@ -1,0 +1,59 @@
+.woocommerce-account {
+  .woocommerce {
+    padding: $spacer 0;
+
+    .woocommerce-form-login,
+    .woocommerce-ResetPassword,
+    .woocommerce-EditAccountForm {
+      border: 0 none;
+      background: $grey-200;
+      border-radius: 0;
+      padding: $spacer;
+
+      @extend .form-group;
+
+      .woocommerce-form-row {
+        input {
+          @extend .form-control;
+        }
+
+        label {
+          font-weight: $font-weight-bold;
+        }
+
+        .password-input {
+          width: 100%;
+        }
+      }
+
+      .form-row {
+        label {
+          width: 100%;
+        }
+      }
+
+      button[type="submit"] {
+        @extend .btn;
+        @extend .btn-primary;
+      }
+    }
+
+    .woocommerce-MyAccount-navigation ul {
+      @extend .nav;
+      @extend .nav-pills;
+      @extend .flex-column;
+
+      li {
+        a {
+          @extend .nav-link;
+        }
+
+        &.is-active {
+          a {
+            @extend .active;
+          }
+        }
+      }
+    }
+  }
+}

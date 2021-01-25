@@ -114,9 +114,7 @@ add_action( 'woocommerce_product_options_general_product_data', __NAMESPACE__.'\
  */
 function save_upc_code( $post_id ){
     $upcCode = $_POST['_upc_code'];
-    if( !empty( $upcCode ) ) {
-        update_post_meta( $post_id, '_upc_code', esc_html( $upcCode ) );
-    }
+    update_post_meta( $post_id, '_upc_code', esc_html( $upcCode ) );
 }
 add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_upc_code' );
 
@@ -183,9 +181,7 @@ add_action( 'woocommerce_product_options_inventory_product_data', __NAMESPACE__.
  */
 function save_lead_code( $post_id ){
     $leadTime = $_POST['_lead_time'];
-    if( !empty( $leadTime ) ) {
-        update_post_meta( $post_id, '_lead_time', esc_html( $leadTime ) );
-    }
+    update_post_meta( $post_id, '_lead_time', esc_html( $leadTime ) );
 }
 add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_lead_code' );
 
@@ -228,16 +224,16 @@ add_action( 'woocommerce_process_product_meta', __NAMESPACE__.'\\save_min_order_
  * Move SKU to underneath UPC
  */
 remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
-add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_meta', 30 );
+add_action( 'woocommerce_before_add_to_cart_form', 'woocommerce_template_single_meta', 30 );
 
 /**
  * Add Imagery underneath descritpion
  */
-add_action('woocommerce_single_product_summary', function(){
+add_action('woocommerce_before_add_to_cart_form', function(){
     $siestaLogo = get_field('siesta_logo');
     $catasLogo = get_field('catas_logo');
 
-    echo '<div class="affiliate-logos mt-3">';
+    echo '<div class="w-100 affiliate-logos mb-3">';
     if($siestaLogo == 'yes') { 
         echo '<img width="60" height="60" class="siesta-logo" src="'.asset_path('images/siesta.png').'" />';
     }
@@ -245,7 +241,22 @@ add_action('woocommerce_single_product_summary', function(){
         echo '<img width="120" height="60" class="catas-logo" src="'.asset_path('images/catas.png').'" />';
     }
     echo '</div>';
-}, 40);
+}, 20);
+
+
+/**
+ * Add Lead Time underneath descritpion
+ */
+add_action('woocommerce_before_add_to_cart_form', function(){
+    $leadTime = get_post_meta( get_the_ID(), '_lead_time', true );
+    //only show lead tim if it has been filled out
+    if(!$leadTime) {
+        echo '<p class="text--orange"><strong>In stock for quick delivery</strong></p>';
+    } else {
+        echo '<p class="text--orange"><strong>Lead time '.$leadTime.'</strong></p>';
+    }
+}, 10);
+
 
 /** 
  * Change single product page order
@@ -264,7 +275,7 @@ remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0
  * TABS
  */
 remove_action( 'woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10 );
-add_action( 'woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 60 );
+add_action( 'woocommerce_after_add_to_cart_form', 'woocommerce_output_product_data_tabs', 10 );
 
 /**
  * Remove product data tabs
@@ -282,7 +293,6 @@ add_filter( 'woocommerce_product_tabs', function($tabs) {
  * Add a Resources data tab
  */
 add_filter( 'woocommerce_product_tabs', function ($tabs) {
-
     // Adds the new resource tab
     $tabs['resources'] = array(
         'title'     => __( 'Resources', 'woocommerce' ),
@@ -309,10 +319,11 @@ add_filter( 'woocommerce_product_tabs', function ($tabs) {
 });
 
 /**
- * Add swtaches to products archives
+ * Add set items
  */
-add_action( 'woocommerce_product_meta_end', function() {
+add_action( 'woocommerce_after_add_to_cart_form', function() {
     if(get_field('product_set_items', get_the_ID())) {
+        echo '<div class="w-100">';
         echo '<h4 class="h3 font-weight-bold pt-4 mb-3">Set Items</div>';
         foreach(get_field('product_set_items') as $productItem) { ?>
         <div class="row align-items-center">
@@ -333,8 +344,9 @@ add_action( 'woocommerce_product_meta_end', function() {
         </div>
         <hr />
         <?php }
+        echo '</div>';
     }
-});
+}, 50);
 
 /**
  * Add swtaches to products archives
@@ -381,4 +393,66 @@ add_filter( 'woocommerce_format_dimensions', function($dimension_string, $dimens
 
     return 'Depth: '.$dimensions['length'].get_option( 'woocommerce_dimension_unit' ).' Width: '.$dimensions['width'].get_option( 'woocommerce_dimension_unit' ).' Height: '.$dimensions['height'].get_option( 'woocommerce_dimension_unit' );
 
+}, 10, 2 );
+
+
+/**
+ * @snippet       Hide Price & Add to Cart for Logged Out Users
+ * @how-to        Get CustomizeWoo.com FREE
+ * @author        Rodolfo Melogli, BusinessBloomer.com
+ * @testedwith    WooCommerce 4.6
+ * @donate $9     https://businessbloomer.com/bloomer-armada/
+ */
+  
+add_action( 'init', function () {
+    if ( ! is_user_logged_in() ) {
+        remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
+        remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
+        add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\set_login_price', 10 );
+        add_action( 'woocommerce_after_shop_loop_item',  __NAMESPACE__.'\\set_login_price', 11 );
+    }
+});
+  
+function set_login_price() { ?>
+    <div class="alert alert-warning mt-3" role="alert">
+        Please 
+        <a class="font-weight-bold" href="<?php echo get_home_url(null, '/register'); ?>">
+            register</a> or 
+        </a>
+        <a class="font-weight-bold" href="<?php echo get_permalink(wc_get_page_id('myaccount')); ?>">
+            login 
+        </a>
+        to view product prices
+    </div>
+<?php }
+
+
+add_filter ( 'woocommerce_account_menu_items', function($menu_links) {
+
+    unset( $menu_links['edit-address'] ); // Addresses
+    unset( $menu_links['dashboard'] ); // Remove Dashboard
+    unset( $menu_links['payment-methods'] ); // Remove Payment Methods
+    unset( $menu_links['orders'] ); // Remove Orders
+    unset( $menu_links['downloads'] ); // Disable Downloads
+
+    return $menu_links;
+});
+
+
+function wc_custom_user_redirect(  ) {
+    
+}
+add_filter( 'woocommerce_login_redirect', function($redirect, $user) {
+    // Get the first of all the roles assigned to the user
+    $role = $user->roles[0];
+
+    $dashboard = admin_url();
+    $myaccount = get_permalink( wc_get_page_id( 'myaccount' ) ).'/edit-account';
+
+    if ( $role == 'customer' || $role == 'subscriber' ) {
+        //Redirect customers and subscribers to the "My Account" page
+        $redirect = $myaccount;
+    }
+
+    return $redirect;
 }, 10, 2 );

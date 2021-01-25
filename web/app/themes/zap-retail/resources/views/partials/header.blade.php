@@ -1,7 +1,17 @@
 <div class="header-wrap w-100">
   <header id="masthead" class="banner background--white">
     <div class="container">
-      <div class="row align-items-center py-4">
+      <div class="w-100 d-flex justify-content-end">
+        <?php if ( is_user_logged_in() ) { ?>
+          <a class="btn btn-primary px-1 py-0" href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>edit-account" title="<?php _e('My Account','woothemes'); ?>"><?php _e('My Account','woothemes'); ?></a>
+          <a class="btn btn-primary px-1 py-0 ml-1" href="<?php echo wp_logout_url(); ?>" title="<?php _e('Logout','woothemes'); ?>"><?php _e('Logout','woothemes'); ?></a>
+        <?php } 
+        else { ?>
+          <a class="btn btn-primary px-1 py-0" href="<?php echo get_permalink( get_option('woocommerce_myaccount_page_id') ); ?>" title="<?php _e('Login','woothemes'); ?>"><?php _e('Login','woothemes'); ?></a>
+          <a class="btn btn-primary px-1 py-0 ml-1" href="<?php echo get_home_url(null, '/register',); ?>" title="<?php _e('Register','woothemes'); ?>"><?php _e('Register','woothemes'); ?></a>
+        <?php } ?>
+      </div>
+      <div class="row align-items-center pb-4">
         <div class="col-2">
           <a class="brand" href="{{ home_url('/') }}">
             <img width="113px" class="img-fluid" alt="{{ get_bloginfo('name', 'display') }}" src="@asset('images/zap-retail-logo.svg')" />

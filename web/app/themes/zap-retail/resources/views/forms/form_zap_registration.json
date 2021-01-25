@@ -1,0 +1,26 @@
+{
+  "key": "form_zap_reg_form",
+  "title": "Zap Registration Form",
+  "display": {
+    "description": "",
+    "success_message": ""
+  },
+  "create_entries": true,
+  "restrictions": {
+    "entries": false,
+    "user": false,
+    "schedule": false
+  },
+  "emails": [
+    {
+      "name": "Zap Retail Registration Form",
+      "active": true,
+      "recipient_type": "custom",
+      "recipient_field": false,
+      "recipient_custom": "sales@zap-retail.com",
+      "from": "noreply@zap-retail.com",
+      "subject": "Zap Retail Registration Form Entry",
+      "content": "<p>{entry_id}<\/p>\n"
+    }
+  ]
+}

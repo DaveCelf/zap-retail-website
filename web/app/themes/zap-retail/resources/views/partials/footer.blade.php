@@ -19,7 +19,7 @@
   <div class="footer-row py-4 background--purple">
     <div class="container">
       <div class="row">
-        <div class="mb-3 mb-md-0 col-12 col-md-3">
+        <div class="mb-3 mb-md-0 col-12 col-md-6">
           <h4 class="h5 mb-4 font-weight-bold text--white">Quick Links:</h4>
           <nav class="quick-links p-0">
             @if (has_nav_menu('quick_navigation'))
@@ -27,20 +27,20 @@
             @endif
           </nav>
         </div>
-        <div class="mb-3 mb-md-0 col-12 col-md-5">
-          <h4 class="h5 mb-4 font-weight-bold text--white">Get in touch:</h4>
-          <p class="d-flex flex-row align-items-center pb-2">
+        <div class="mb-3 mb-md-0 col-12 col-md-6 text-left text-lg-right">
+          <h4 class="h5 mb-4 font-weight-bold text--white text-left text-lg-right">Get in touch:</h4>
+          <p class="d-flex flex-row align-items-center pb-2 justify-content-start justify-content-lg-end">
             <img class="mr-2 pt-1 phone-footer" width="20px" height="auto" alt="Truck" src="@asset('images/phone.svg')" />
             <span class="d-inline-block text--white mb-0">Contact our sales team on 0345 073 8455</span>
           </p>
-          <p class="d-flex flex-row align-items-start pb-2">
+          <p class="d-flex flex-row align-items-start pb-2 justify-content-start justify-content-lg-end">
             <img class="mr-2 pt-1 mail" width="20px" height="auto" alt="Truck" src="@asset('images/mail.svg')" />
             <span class="d-inline-block text--white mb-0">
               <a href="mailto:sales@zapretail.com" class="text--white">sales@zap-retail.com</a>
             </span>
           </p>
         </div>
-        <div class="mb-3 mb-md-0 col-12 col-md-4">
+        {{-- <div class="mb-3 mb-md-0 col-12 col-md-4">
           <h4 class="h5 mb-4 font-weight-bold text--white">Download Brochures:</h4>
           <p>
             <a href="#">
@@ -60,7 +60,7 @@
               <span class="ml-2 d-inline-block text--white">ZAP Retail Rattan Catalogue</span>
             </a>
           </p>
-        </div>
+        </div> --}}
       </div>
     </div>
   </div>

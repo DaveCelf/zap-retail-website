@@ -14,6 +14,12 @@
         text-transform: uppercase;
         font-size: $font-size-base * 1.1;
       }
+
+      &:last-of-type {
+        a {
+          padding-right: 0;
+        }
+      }
     }
   }
 }

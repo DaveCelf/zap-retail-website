@@ -17,3 +17,173 @@
   @extend .btn;
   @extend .btn-secondary;
 }
+
+/** general advanced forms **/
+.af-form {
+  @extend .alignfull;
+
+  padding: ($spacer * 3.5) 0;
+
+  .acf-input-wrap {
+    overflow: visible;
+    height: auto;
+  }
+
+  .af-label {
+    margin: 0;
+  }
+
+  .af-title {
+    text-transform: uppercase;
+  }
+
+  .af-description {
+    margin-bottom: $spacer;
+  }
+
+  .acf-fields {
+    @extend .container;
+    @extend .row;
+
+    margin: 0 auto;
+
+    &.-border {
+      background: none;
+      border: 0 none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .acf-field {
+      padding: ($spacer / 0.7) $spacer;
+      border-top: 0 none;
+    }
+
+    .af-field {
+      border-top-width: 0;
+      padding: 0  $spacer ($spacer / 2);
+
+      @extend .form-group;
+
+      &.af-field-type-group,
+      &.af-field-type-message {
+        padding: 0;
+
+        > .acf-label {
+          padding: 0  $spacer ($spacer / 2);
+          margin-top: $spacer;
+
+          @extend .h4;
+        }
+
+        .acf-field {
+          padding-top: 0;
+        }
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="number"] {
+        display: block;
+        width: 100%;
+        height: $input-height;
+        color: $gray-700;
+        background-color: $white;
+        background-clip: padding-box;
+        border: 1px solid $gray-300;
+        font-size: $font-size-sm * 1.2;
+      }
+
+      input[type="text"],
+      input[type="email"] {
+        padding: $spacer;
+      }
+
+      select {
+        @extend .form-control;
+
+        height: $input-height;
+        border: 1px solid $gray-300;
+      }
+
+      input[type="number"] {
+        padding: $spacer;
+        height: $input-height;
+      }
+
+      textarea {
+        display: block;
+        width: 100%;
+        padding: $spacer;
+        color: $gray-700;
+        background-color: $white;
+        background-clip: padding-box;
+        border: 1px solid $gray-300;
+        font-size: $font-size-sm * 1.2;
+      }
+    }
+
+    .acf-field-true-false {
+      div.acf-label {
+        display: none;
+      }
+    }
+
+    .acf-radio-list,
+    .acf-checkbox-list,
+    .acf-true-false {
+      label {
+        @extend .form-check-label;
+
+        font-size: $font-size-sm;
+
+        input {
+          -webkit-appearance: none;
+          appearance: none;
+          width: $checkbox-width;
+          height: $checkbox-height;
+          background-color: $white;
+          border: 1px solid darken($blue, 10%);
+          border-radius: $spacer;
+
+          &:checked::after {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            top: 3px;
+            left: 3px;
+            position: relative;
+            background-color: $blue;
+            content: "";
+            display: block;
+          }
+        }
+      }
+    }
+
+    .af-label label,
+    .acf-label label {
+      font-weight: $font-weight-bold;
+    }
+
+    .af-submit {
+      padding: 0 $spacer;
+      width: 100%;
+
+      .acf-button {
+        @extend .btn;
+
+        width: 100%;
+        color: $white;
+        background: $primary;
+        height: $input-height;
+        border: 0 none;
+
+        &:hover {
+          background: $white;
+          color: $blue;
+        }
+      }
+    }
+  }
+}
