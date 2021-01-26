@@ -99,10 +99,10 @@ function add_upc_code() {
     echo '<div class="form-field form-row form-row-full">';
         woocommerce_wp_text_input([
             'id'            => '_upc_code',
-            'label'         => __( 'UPC', 'zap' ), 
+            'label'         => __( 'EAN', 'zap' ), 
             'placeholder'   => 'ZP8374560',
             'desc_tip'      => true,
-            'description'   => __( 'Enter the UPC value here.', 'zap' ),
+            'description'   => __( 'Enter the EAN value here.', 'zap' ),
         ]);
     echo '</div>';
 
@@ -129,10 +129,10 @@ function add_upc_code_variation_custom_field( $loop, $variation_data, $variation
     echo '<div class="options_group form-row form-row-full">';
     woocommerce_wp_text_input([
         'id'          => '_upc_code['.$loop.']',
-        'label'       => __('Variation UPC Code','woocommerce'),
+        'label'       => __('Variation EAN Code','woocommerce'),
         'placeholder' => 'ZP8374560',
         'desc_tip'    => true,
-        'description' => __( 'Enter the UPC code here.', 'zap' ),
+        'description' => __( 'Enter the EAN code here.', 'zap' ),
         'value'       => get_post_meta($variation->ID, '_upc_code', true ),
     ]);
     echo '</div>';
@@ -385,6 +385,9 @@ add_action( 'template_redirect', function() {
     }
 });
 
+/**
+ * Reformat the dimension display
+ */
 add_filter( 'woocommerce_format_dimensions', function($dimension_string, $dimensions)
 {
     if ( empty( $dimension_string ) )
@@ -395,24 +398,38 @@ add_filter( 'woocommerce_format_dimensions', function($dimension_string, $dimens
 
 }, 10, 2 );
 
-
 /**
- * @snippet       Hide Price & Add to Cart for Logged Out Users
- * @how-to        Get CustomizeWoo.com FREE
- * @author        Rodolfo Melogli, BusinessBloomer.com
- * @testedwith    WooCommerce 4.6
- * @donate $9     https://businessbloomer.com/bloomer-armada/
+ * Hide Price & Add to Cart for Logged Out Users
+ * Show VAT Switcher
  */
-  
 add_action( 'init', function () {
     if ( ! is_user_logged_in() ) {
         remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_price', 10 );
         remove_action( 'woocommerce_after_shop_loop_item_title', 'woocommerce_template_loop_price', 10 );
         add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\set_login_price', 10 );
         add_action( 'woocommerce_after_shop_loop_item',  __NAMESPACE__.'\\set_login_price', 11 );
+    } else {
+        add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\add_vat_switch', 10, 2);
     }
 });
-  
+
+/**
+ * Add plugin shortcode for VAT Switcher
+ *
+ * @return void
+ */
+function add_vat_switch() {
+    echo '<div class="pb-2">';
+    echo do_shortcode('[wc_show_tax including_label="Show Price Including VAT" excluding_label="Show Price Excluding VAT"]');
+    echo '</div>';
+};
+
+
+/**
+ * Set login for prices
+ *
+ * @return String
+ */
 function set_login_price() { ?>
     <div class="alert alert-warning mt-3" role="alert">
         Please 
@@ -426,7 +443,9 @@ function set_login_price() { ?>
     </div>
 <?php }
 
-
+/**
+ * Change account menu items
+ */
 add_filter ( 'woocommerce_account_menu_items', function($menu_links) {
 
     unset( $menu_links['edit-address'] ); // Addresses
@@ -438,10 +457,9 @@ add_filter ( 'woocommerce_account_menu_items', function($menu_links) {
     return $menu_links;
 });
 
-
-function wc_custom_user_redirect(  ) {
-    
-}
+/**
+ * Woocommerce Login redirect
+ */
 add_filter( 'woocommerce_login_redirect', function($redirect, $user) {
     // Get the first of all the roles assigned to the user
     $role = $user->roles[0];

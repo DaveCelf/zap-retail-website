@@ -74,7 +74,8 @@
     "wpackagist-plugin/async-javascript": "*",
     "wpackagist-plugin/autoptimize": "*",
     "wpackagist-plugin/seo-by-rank-math": "*",
-    "wpackagist-plugin/woo-product-gallery-slider": "*"
+    "wpackagist-plugin/woo-product-gallery-slider": "*",
+    "wpackagist-plugin/wc-show-tax": "*"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^3.5.6",

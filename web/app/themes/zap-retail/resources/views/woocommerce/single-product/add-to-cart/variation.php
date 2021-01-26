@@ -14,9 +14,9 @@ defined( 'ABSPATH' ) || exit;
 
 ?>
 <script type="text/template" id="tmpl-variation-template">
+    <div class="woocommerce-variation-upc"><strong>EAN:</strong> {{{ data.variation.upc_code }}}</div>
     <div class="woocommerce-variation-description">{{{ data.variation.variation_description }}}</div>
     <div class="woocommerce-variation-price">{{{ data.variation.price_html }}}</div>
-    <div class="woocommerce-variation-upc"><strong>UPC CODE:</strong> {{{ data.variation.upc_code }}}</div>
     <!-- <div class="woocommerce-variation-availability">{{{ data.variation.availability_html }}}</div> -->
 </script>
 <!-- <script type="text/template" id="tmpl-unavailable-variation-template">

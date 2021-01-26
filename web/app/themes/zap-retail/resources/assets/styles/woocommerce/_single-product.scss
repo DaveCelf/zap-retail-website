@@ -234,3 +234,15 @@
     }
   }
 }
+
+input[name="weshowtax_toggle_show_tax"] {
+  @extend .btn;
+
+  color: $teal;
+  background: $grey-200;
+
+  &:hover {
+    background: $primary;
+    color: $white;
+  }
+}
