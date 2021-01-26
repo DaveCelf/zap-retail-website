@@ -247,7 +247,7 @@ add_action('woocommerce_before_add_to_cart_form', function(){
 /**
  * Add Lead Time underneath descritpion
  */
-add_action('woocommerce_before_add_to_cart_form', function(){
+add_action('woocommerce_single_product_summary', function(){
     $leadTime = get_post_meta( get_the_ID(), '_lead_time', true );
     //only show lead tim if it has been filled out
     if(!$leadTime) {
@@ -255,15 +255,7 @@ add_action('woocommerce_before_add_to_cart_form', function(){
     } else {
         echo '<p class="text--orange"><strong>Lead time '.$leadTime.'</strong></p>';
     }
-}, 10);
-
-
-/** 
- * Change single product page order
- * ADD TO CART / VARIATIONS
- */
-// remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30 );
-// add_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 70 );
+}, 10, 3);
 
 /**
  * Remove woo breadcrumbs on all pages
