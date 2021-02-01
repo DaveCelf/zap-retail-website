@@ -2,6 +2,8 @@
 
 namespace App;
 
+use WP_User;
+
 /**
  * Add <body> classes
  */
@@ -466,3 +468,145 @@ add_filter( 'woocommerce_login_redirect', function($redirect, $user) {
 
     return $redirect;
 }, 10, 2 );
+
+/**
+ * Change Sender Email
+ *
+ * @param String $original_email_address
+ * @return void
+ */
+add_filter('wp_mail_from', function ($original_email_address) {
+    return 'noreply@zap.celfaps.com';
+});
+
+/**
+ * Function to change sender name
+ *
+ * @param String $original_email_from
+ * @return void
+ */
+add_filter('wp_mail_from_name', function ($original_email_from) {
+    return 'Zap Retail';
+});
+
+/** Remove defaut register user email */
+remove_action( 'register_new_user', 'wp_send_new_user_notifications' );
+remove_action( 'edit_user_created_user', 'wp_send_new_user_notifications', 10, 2 );
+
+/** Add new user email message **/
+function new_user_registration_email($user_id)
+{
+    $userData = new WP_User($user_id);
+    $userEmail = stripslashes($userData->user_email);
+    $resetKey = get_password_reset_key($userData);
+    $to = $userEmail;
+    $userLogin = $userData->user_login;
+    $headers = 'From: ZAP Retail <noreply@zap.celfaps.com>';
+    $subject = 'Your registration is complete.';
+    $siteUrl = get_home_url();
+    $name = $userData->first_name;
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+
+    ob_start();
+    include(__DIR__ . DIRECTORY_SEPARATOR . '/Emails/new-user-registration.php');
+    $message = ob_get_contents();
+    ob_end_clean();
+    
+    wp_mail($to, $subject, $message, $headers);
+};
+add_action('edit_user_created_user', __NAMESPACE__.'\\new_user_registration_email', 10, 1);
+
+function login_styling() { ?>
+    <style type="text/css">
+        #login h1 a, .login h1 a {
+            background-image: url(<?php echo asset_path('images/zap-retail-logo.svg'); ?>)  !important;
+            height: 56px;
+            width: 130px;
+            background-size: 130px 56px;
+            background-repeat: no-repeat;
+        }
+        form {
+            border: 0 none !important;
+            box-shadow: none !important;
+            background: #f1f1f1 !important;
+        }
+        .login form .input, .login input[type="text"], .login input[type="password"] {
+            border-radius: 0 !important;
+            border: 0 none !important;
+            background: #ffffff !important;
+        }
+        .login .message {
+            border-left: 4px solid #cd9925 !important;
+        }
+        .login #login_error {
+            border-left-color: #cd9925 !important;
+        }
+        .wp-core-ui .button-primary {
+            background: #cd9925 !important;
+            box-shadow: 0 1px 0 #cd9925 !important;
+            text-shadow: none !important;
+            border-color: #cd9925 !important;
+            border-radius: 0 !important;
+        }
+    </style>
+<?php }
+add_action('login_enqueue_scripts', __NAMESPACE__.'\\login_styling');
+
+/**
+ * Disable output buffering for login form
+ *
+ * @return void
+ */
+function autocomplete_login_init()
+{
+    ob_start();
+}
+add_action('login_init', __NAMESPACE__ . '\\autocomplete_login_init');
+
+/**
+ * Edit the output to add the autocomplete attribute
+ *
+ * @return void
+ */
+function autocomplete_login_form()
+{
+    $login = ob_get_contents();
+    ob_end_clean();
+    $login = str_replace('id="user_login"', 'id="user_login" autocomplete="off"', $login);
+    $login = str_replace('id="user_pass"', 'id="user_pass" autocomplete="off"', $login);
+    echo $login;
+}
+add_action('login_form', __NAMESPACE__ . '\\autocomplete_login_form');
+
+/**
+ * Update forgotten password subject line
+ *
+ * @return void
+ */
+function retrieve_password_title()
+{
+    return "ZAP Retail Reset Password";
+}
+add_filter('retrieve_password_title', __NAMESPACE__ . '\\retrieve_password_title');
+
+/**
+ * Change login error message
+ */
+add_filter('login_errors', function ($error) {
+    return __('<strong>ERROR</strong>: Invalid Login credentials.');
+});
+
+/**
+ * admin_cache_headers function
+ * Adds new cache header for logged in users
+ * Stop caching of authentication pages using no-store
+ *
+ * @return void
+ */
+function admin_cache_headers()
+{
+    if (is_user_logged_in()) {
+        header('Cache-Control: no-store');
+    }
+}
+add_action('send_headers', __NAMESPACE__ .  '\\admin_cache_headers');
