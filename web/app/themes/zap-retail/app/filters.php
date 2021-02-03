@@ -234,6 +234,7 @@ add_action( 'woocommerce_before_add_to_cart_form', 'woocommerce_template_single_
 add_action('woocommerce_before_add_to_cart_form', function(){
     $siestaLogo = get_field('siesta_logo');
     $catasLogo = get_field('catas_logo');
+    $recycleLogo = get_field('recycle_logo');
 
     echo '<div class="w-100 affiliate-logos mb-3">';
     if($siestaLogo == 'yes') { 
@@ -242,6 +243,10 @@ add_action('woocommerce_before_add_to_cart_form', function(){
     if($catasLogo == 'yes') { 
         echo '<img width="120" height="60" class="catas-logo" src="'.asset_path('images/catas.png').'" />';
     }
+    if($recycleLogo == 'yes') { 
+        echo '<img width="120" height="60" class="catas-logo" src="'.asset_path('images/recycle.svg').'" />';
+    }
+    
     echo '</div>';
 }, 20);
 

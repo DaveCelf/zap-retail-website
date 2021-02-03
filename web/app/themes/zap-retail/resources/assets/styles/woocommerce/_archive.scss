@@ -5,6 +5,10 @@
       border-right: 1px solid $grey-500;
       border-top: 1px solid $grey-500;
 
+      @include media-breakpoint-down(sm) {
+        width: 100% !important;
+      }
+
       @include media-breakpoint-up(md) {
         width: 46.2%;
       }
