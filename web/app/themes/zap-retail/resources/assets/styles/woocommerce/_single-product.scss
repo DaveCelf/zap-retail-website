@@ -2,17 +2,27 @@
   div.product {
     @extend .row;
 
-    padding-top: $spacer * 3;
+    flex-direction: column;
+    padding-top: $spacer;
+
+    @include media-breakpoint-up(md) {
+      flex-direction: row;
+      padding-top: $spacer * 3;
+    }
 
     .entry-summary {
-      @extend .col-7;
+      @extend .col-12;
+      @extend .col-md-7;
 
       float: none;
     }
 
     .images {
-      @extend .col-5;
+      @extend .col-10;
+      @extend .col-sm-6;
+      @extend .col-md-5;
 
+      margin: 0 auto;
       float: none;
     }
 

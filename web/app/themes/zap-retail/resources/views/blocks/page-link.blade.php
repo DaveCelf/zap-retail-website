@@ -21,7 +21,7 @@ $pageColor = get_field('page_color');
 <section data-block="{{ $block['id'] }}" class="{{ $block['classes'] }} text-center">
     <div class="card bg-dark text-white border-0">
       <img 
-      src="<?php echo $pageIBgImg['sizes']['woocommerce_thumbnail']; ?>" 
+      src="<?php echo $pageIBgImg['sizes']['Page Link']; ?>" 
       class="card-img"
       alt="<?php echo $pageIBgImg['title']; ?>">
       <div class="card-img-overlay rounded d-flex justify-content-end flex-column p-0">

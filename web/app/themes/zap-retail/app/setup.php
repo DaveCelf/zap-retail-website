@@ -60,6 +60,7 @@ add_action('after_setup_theme', function () {
     add_theme_support('post-thumbnails');
     add_image_size('Slider Image', 1300, 885, true);
     add_image_size('Page Header', 1800, 885, true);
+    add_image_size('Page Link', 600, 600, true);
 
     /**
      * Theme suport for alignwide

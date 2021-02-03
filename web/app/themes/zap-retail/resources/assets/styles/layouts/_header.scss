@@ -1,3 +1,13 @@
+.delivery-row {
+  a {
+    color: $white;
+
+    &:hover {
+      color: $orange;
+    }
+  }
+}
+
 .banner .nav li {
   @extend .nav-item;
 }
@@ -8,11 +18,11 @@
 
 #masthead {
   ul {
-    li {
+    li.menu-item {
       a {
         font-family: $roboto-condensed;
         text-transform: uppercase;
-        font-size: $font-size-base * 1.1;
+        font-size: $font-size-md;
       }
 
       &:last-of-type {

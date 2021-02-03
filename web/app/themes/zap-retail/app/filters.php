@@ -610,3 +610,31 @@ function admin_cache_headers()
     }
 }
 add_action('send_headers', __NAMESPACE__ .  '\\admin_cache_headers');
+
+/**
+ * Change logo site url
+ * return String
+ */
+add_filter('login_headerurl', function ($url) {
+    return home_url();
+});
+
+/**
+ *  Change logo title to blogname
+ */
+add_filter('login_headertext', function () {
+    return get_option('blogname');
+});
+
+/**
+ * Checks user role and redirects login to the necessary page
+ * Checks to see if redirect cookie exists.
+ *
+ * @return void
+ */
+function redirect_after_login()
+{
+    return home_url();
+}
+add_filter('login_redirect', __NAMESPACE__. '\\redirect_after_login', 10, 3);
+add_filter('woocommerce_login_redirect', __NAMESPACE__. '\\redirect_after_login' );

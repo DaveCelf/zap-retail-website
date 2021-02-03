@@ -5,6 +5,14 @@
       border-right: 1px solid $grey-500;
       border-top: 1px solid $grey-500;
 
+      @include media-breakpoint-up(md) {
+        width: 46.2%;
+      }
+
+      @include media-breakpoint-up(lg) {
+        width: 22.05%;
+      }
+
       a {
         h2 {
           display: none;

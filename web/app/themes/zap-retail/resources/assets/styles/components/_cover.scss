@@ -1,6 +1,12 @@
 .wp-block-cover {
-  &.intro-cover {
-    height: 885px;
+  min-height: 200px !important;
+
+  @include media-breakpoint-up(md) {
+    min-height: 500px !important;
+  }
+
+  @include media-breakpoint-up(lg) {
+    min-height: 800px !important;
   }
 
   &__inner-container {

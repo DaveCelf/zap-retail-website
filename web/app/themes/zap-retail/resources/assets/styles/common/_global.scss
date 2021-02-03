@@ -126,3 +126,30 @@ h4,
 h5 {
   font-family: $comfortaa;
 }
+
+#mobileNav {
+  margin-bottom: $spacer;
+
+  .menu-item {
+    text-align: center;
+
+    a {
+      font-family: $roboto-condensed;
+      text-transform: uppercase;
+      font-size: $font-size-md;
+    }
+  }
+}
+
+table thead {
+  background: $teal;
+}
+
+table thead tr th,
+table thead tr th strong {
+  color: $white;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background: lighten($teal, 50%);
+}
