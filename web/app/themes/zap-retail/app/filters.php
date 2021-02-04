@@ -250,20 +250,6 @@ add_action('woocommerce_before_add_to_cart_form', function(){
     echo '</div>';
 }, 20);
 
-
-/**
- * Add Lead Time underneath descritpion
- */
-add_action('woocommerce_single_product_summary', function(){
-    $leadTime = get_post_meta( get_the_ID(), '_lead_time', true );
-    //only show lead tim if it has been filled out
-    if(!$leadTime) {
-        echo '<p class="text--orange"><strong>In stock for quick delivery</strong></p>';
-    } else {
-        echo '<p class="text--orange"><strong>Lead time '.$leadTime.'</strong></p>';
-    }
-}, 10, 3);
-
 /**
  * Remove woo breadcrumbs on all pages
  */
@@ -408,9 +394,23 @@ add_action( 'init', function () {
         add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\set_login_price', 10 );
         add_action( 'woocommerce_after_shop_loop_item',  __NAMESPACE__.'\\set_login_price', 11 );
     } else {
+        add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\display_lead_time_fe', 10, 3);
         add_action( 'woocommerce_single_product_summary',  __NAMESPACE__.'\\add_vat_switch', 10, 2);
     }
 });
+
+/**
+ * Add Lead Time underneath descritpion
+ */
+function display_lead_time_fe() {
+    $leadTime = get_post_meta( get_the_ID(), '_lead_time', true );
+    //only show lead tim if it has been filled out
+    if(!$leadTime) {
+        echo '<p class="text--orange"><strong>In stock for quick delivery</strong></p>';
+    } else {
+        echo '<p class="text--orange"><strong>Lead time '.$leadTime.'</strong></p>';
+    }
+};
 
 /**
  * Add plugin shortcode for VAT Switcher
@@ -481,7 +481,7 @@ add_filter( 'woocommerce_login_redirect', function($redirect, $user) {
  * @return void
  */
 add_filter('wp_mail_from', function ($original_email_address) {
-    return 'noreply@zap.celfaps.com';
+    return 'noreply@zap-retail.com';
 });
 
 /**
@@ -506,7 +506,7 @@ function new_user_registration_email($user_id)
     $resetKey = get_password_reset_key($userData);
     $to = $userEmail;
     $userLogin = $userData->user_login;
-    $headers = 'From: ZAP Retail <noreply@zap.celfaps.com>';
+    $headers = 'From: ZAP Retail <noreply@zap-retail.com>';
     $subject = 'Your registration is complete.';
     $siteUrl = get_home_url();
     $name = $userData->first_name;
@@ -643,3 +643,25 @@ function redirect_after_login()
 }
 add_filter('login_redirect', __NAMESPACE__. '\\redirect_after_login', 10, 3);
 add_filter('woocommerce_login_redirect', __NAMESPACE__. '\\redirect_after_login' );
+
+/**
+ * Order up sell product by menu_order
+ *
+ * @param String $orderby
+ * @return String
+ */
+function woocommerce_upsells_orderby( $orderby ) { 
+    return 'menu_order';
+};
+add_filter( 'woocommerce_upsells_orderby', __NAMESPACE__. '\\woocommerce_upsells_orderby', 10, 1 );  
+
+/**
+ * Order up sell product asc/desc/rand
+ *
+ * @param String $order
+ * @return String
+ */
+function upsells_order( $order ){
+    return 'asc'; // Default is 'desc'
+}
+add_filter( 'woocommerce_upsells_order', __NAMESPACE__. '\\upsells_order', 10, 1 );

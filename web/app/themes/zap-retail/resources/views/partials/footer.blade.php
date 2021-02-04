@@ -23,12 +23,12 @@
           <h4 class="h5 mb-4 font-weight-bold text--white">Get in touch:</h4>
           <p class="d-flex flex-row align-items-center pb-2">
             <img class="mr-2 pt-1 phone-footer" width="20px" height="auto" alt="Truck" src="@asset('images/phone.svg')" />
-            <span class="d-inline-block text--white mb-0">Contact our sales team on 0345 073 8455</span>
+            <span class="d-inline-block text--white mb-0">Contact our sales team on <a class="text--white" href="tel:03450738455">0345 073 8455</a></span>
           </p>
           <p class="d-flex flex-row align-items-start pb-2">
             <img class="mr-2 pt-1 mail" width="20px" height="auto" alt="Truck" src="@asset('images/mail.svg')" />
             <span class="d-inline-block text--white mb-0">
-              <a href="mailto:sales@zaptrading.co.uk" class="text--white">sales@zaptrading.co.uk</a>
+              <a class="text--white" href="mailto:sales@zaptrading.co.uk" class="text--white">sales@zaptrading.co.uk</a>
             </span>
           </p>
         </div>
@@ -76,7 +76,7 @@
         </div>
         <div class="col-12 col-md-6 text-center text-md-right">
           <p class="my-0"><small>
-            <a class="text--white" href="https://celfcreative.com">Website Design: CELF</a>
+            <a class="text--white" href="https://celfcreative.com">Website Design: CELF Creative</a>
           </small></p>
         </div>
       </div>
