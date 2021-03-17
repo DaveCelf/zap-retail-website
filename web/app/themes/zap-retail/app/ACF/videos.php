@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Register download meta
+ * Register video meta
  */
 acf_add_local_field_group([
     'key' => 'product_videos',
@@ -45,7 +45,7 @@ acf_add_local_field_group([
 ]);
 
 /**
- * Resgister download for products
+ * Resgister videos for products
 */
 acf_add_local_field_group([
     'key' => 'video_information',
