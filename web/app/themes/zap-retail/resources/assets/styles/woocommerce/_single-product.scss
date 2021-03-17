@@ -132,7 +132,8 @@
     }
 
     .woocommerce-Tabs-panel {
-      &--resources {
+      &--resources,
+      &--video {
         .list-group {
           border: 0 none;
 
