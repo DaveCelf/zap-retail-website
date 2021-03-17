@@ -315,7 +315,7 @@ add_filter('woocommerce_product_tabs', function ($tabs) {
 
     if ($videos) {
         $tabs['video'] = array(
-            'title'     => __('Videos', 'woocommerce'),
+            'title'     => __('Videos and Guides', 'woocommerce'),
             'priority'  => 50,
             'callback'  => function () {
                 $videos = get_field('video_relation');
